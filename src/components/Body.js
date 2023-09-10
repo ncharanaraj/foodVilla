@@ -1,40 +1,16 @@
-import { useEffect, useState } from "react";
-import { API_URL } from "../constants";
+import useRestaurants from "../utils/useRestaurants";
 import RestaurantCard from "./RestaurantCard";
 import Loader from "./loader";
 import { Link } from "react-router-dom";
 
 const Body = () => {
-  const [allRestaurants, setAllRestaurants] = useState([]);
-  const [filteredRestaurants, setfilteredRestaurants] = useState([]);
-  const [search, setSearch] = useState("");
-
-  const searchHandler = (searchText, searchRestaurants) => {
-    return searchText.length === 0
-      ? allRestaurants
-      : searchRestaurants.filter((restaurant) => {
-          return restaurant?.info?.name
-            .toLocaleLowerCase()
-            .includes(searchText.toLocaleLowerCase());
-        });
-  };
-
-  useEffect(() => {
-    fetchRestaurants();
-  }, []);
-
-  async function fetchRestaurants() {
-    const response = await fetch(`${API_URL}`);
-    const restaurants = await response.json();
-    setAllRestaurants(
-      restaurants?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-    setfilteredRestaurants(
-      restaurants?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-  }
+  const {
+    allRestaurants,
+    filteredRestaurants,
+    handleSearch,
+    search,
+    setSearch,
+  } = useRestaurants();
 
   if (!allRestaurants) return null;
 
@@ -46,18 +22,12 @@ const Body = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button
-          onClick={() => {
-            setfilteredRestaurants(searchHandler(search, allRestaurants));
-          }}
-        >
-          Search
-        </button>
+        <button onClick={handleSearch}>Search</button>
       </div>
-      {allRestaurants?.length === 0 ? (
+      {!allRestaurants?.length ? (
         <Loader />
       ) : (
-        <>
+        <div>
           {!filteredRestaurants.length
             ? "No restaurants available for your search"
             : null}
@@ -73,7 +43,7 @@ const Body = () => {
               );
             })}
           </div>
-        </>
+        </div>
       )}
     </>
   );

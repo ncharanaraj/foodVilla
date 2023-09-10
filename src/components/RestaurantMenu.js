@@ -1,28 +1,15 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IMAGE_URL } from "../constants";
 import Loader from "./loader";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
   let { menuId } = useParams();
 
-  const [restaurantMenu, setRestaurantMenu] = useState([]);
+  const restaurantMenu = useRestaurantMenu(menuId);
 
   const restaurantProfile = restaurantMenu[0]?.card?.card?.info;
 
-  useEffect(() => {
-    fetchRestaurantMenu();
-  }, []);
-
-  async function fetchRestaurantMenu() {
-    const response = await fetch(
-      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9715987&lng=77.5945627&restaurantId=${menuId}`
-    );
-
-    const menu = await response.json();
-
-    setRestaurantMenu(menu?.data?.cards);
-  }
   return restaurantMenu.length === 0 ? (
     <Loader />
   ) : (
@@ -41,7 +28,9 @@ const RestaurantMenu = () => {
         <div>
           {restaurantMenu[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards?.map(
             (restaurant) => (
-              <li key={restaurant.card.info.id}>{restaurant.card.info.name}</li>
+              <li key={restaurant?.card?.info?.id}>
+                {restaurant?.card?.info?.name}
+              </li>
             )
           )}
         </div>

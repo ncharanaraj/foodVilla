@@ -1,62 +1,59 @@
-import React, { useState } from "react";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import "./App.css";
-import { IMAGE_URL, restaurantsList } from "./constants";
 import Header from "./components/Header";
-
-const RestaurantCard = ({ name, cloudinaryImageId, cuisines }) => {
-  return (
-    <div className="restaurant-card">
-      <img src={`${IMAGE_URL}${cloudinaryImageId}`} alt={name} />
-      <p>{name}</p>
-      <span className="restaurant-card-badge">{cuisines.join(", ")}</span>
-    </div>
-  );
-};
+import Body from "./components/Body";
+import Footer from "./components/Footer";
+import Error from "./components/Error";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import RestaurantMenu from "./components/RestaurantMenu";
+import Profile from "./components/Profile";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 const App = () => {
-  const [restaurants, setRestaurants] = useState(restaurantsList);
-  const [search, setSearch] = useState("");
-
-  const searchHandler = (searchText, searchRestaurants) => {
-    return searchText.length === 0
-      ? restaurantsList
-      : searchRestaurants.filter((restaurant) => {
-          return restaurant.info.name
-            .toLocaleLowerCase()
-            .includes(searchText.toLocaleLowerCase());
-        });
-  };
-
   return (
     <>
-      <header className="header">
-        <Header />
-      </header>
-      <main>
-        <div className="restaurant-search">
-          <input
-            type="search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button
-            onClick={() => {
-              setRestaurants(searchHandler(search, restaurants));
-            }}
-          >
-            Search
-          </button>
-        </div>
-        <div className="restaurant-cards">
-          {restaurants.map((restaurant) => {
-            return (
-              <RestaurantCard {...restaurant.info} key={restaurant.info.id} />
-            );
-          })}
-        </div>
-      </main>
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   );
 };
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+        children: [
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+        ],
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/restaurant/:menuId",
+        element: <RestaurantMenu />,
+      },
+    ],
+  },
+]);
+
 export default App;
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<RouterProvider router={router} />);

@@ -1,3 +1,4 @@
+import useOnline from "../utils/useOnline";
 import useRestaurants from "../utils/useRestaurants";
 import RestaurantCard from "./RestaurantCard";
 import Loader from "./loader";
@@ -12,33 +13,55 @@ const Body = () => {
     setSearch,
   } = useRestaurants();
 
+  const isOnline = useOnline();
+
+  if (!isOnline) {
+    return <h1>You are offline. Please check your connection</h1>;
+  }
+
   if (!allRestaurants) return null;
 
   return (
     <>
-      <div className="restaurant-search">
+      <div className=" p-4 flex justify-center">
         <input
           type="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          className="pl-5 p-2 rounded-s-full border focus:outline-none w-96 "
+          placeholder="Search"
         />
-        <button onClick={handleSearch}>Search</button>
+        <button
+          onClick={handleSearch}
+          className="bg-green-200 px-3 rounded-e-full font-semibold "
+        >
+          Search
+        </button>
       </div>
-      {!allRestaurants?.length ? (
+      {!allRestaurants.length ? (
         <Loader />
       ) : (
-        <div>
-          {!filteredRestaurants.length
-            ? "No restaurants available for your search"
-            : null}
-          <div className="restaurant-cards">
+        <div className="mx-auto max-w-screen-lg">
+          {!filteredRestaurants.length ? (
+            <h2 className="text-xl font-bold my-3 text-center">
+              No restaurants available for your search
+            </h2>
+          ) : (
+            <>
+              <h2 className="text-xl font-bold my-3">
+                Restaurants with online food delivery
+              </h2>
+            </>
+          )}
+
+          <div className="flex flex-wrap justify-between gap-y-2">
             {filteredRestaurants?.map((restaurant) => {
               return (
                 <Link
-                  to={`/restaurant/${restaurant?.info?.id}`}
-                  key={restaurant?.info?.id}
+                  to={`/restaurant/${restaurant.info.id}`}
+                  key={restaurant.info.id}
                 >
-                  <RestaurantCard {...restaurant?.info} />
+                  <RestaurantCard {...restaurant.info} />
                 </Link>
               );
             })}

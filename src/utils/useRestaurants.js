@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_URL } from "../constants";
+import { API_URL } from "./constants";
 import { searchHandler } from "./helper";
 
 const useRestaurants = () => {

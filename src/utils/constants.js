@@ -8,6 +8,11 @@ export const API_URL =
 export const RESTAURANT_MENU_URL =
   "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9715987&lng=77.5945627&restaurantId=";
 
+export const PROFILE = "https://api.github.com/users/ncharanaraj";
+
+export const PARTNER_ON_BOARDING =
+  "https://www.swiggy.com/dapi/support/issues/partner-onboarding";
+
 export const restaurantsList = [
   {
     info: {

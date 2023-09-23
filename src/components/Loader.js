@@ -1,25 +1,12 @@
 import React from "react";
 
-const Card = () => {
-  return (
-    <div className="card">
-      <div className="card-image"></div>
-      <div className="card-text"></div>
-      <div className="card-text"></div>
-      <div className="card-text"></div>
-      <div className="card-text"></div>
-    </div>
-  );
-};
-
 const Loader = () => {
   return (
-    <div className="cards">
-      {Array(10)
-        .fill("")
-        .map((index) => (
-          <Card key={index} />
-        ))}
+    <div className="mx-auto max-w-screen-lg flex justify-between h-full">
+      <div className="bg-gray-200 w-52 h-52 rounded-md"></div>
+      <div className="bg-gray-200 w-52 h-52 rounded-md"></div>
+      <div className="bg-gray-200 w-52 h-52 rounded-md"></div>
+      <div className="bg-gray-200 w-52 h-52 rounded-md"></div>
     </div>
   );
 };

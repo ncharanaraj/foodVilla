@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./App.css";
 import Header from "./components/Header";
@@ -8,13 +8,14 @@ import Error from "./components/Error";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import RestaurantMenu from "./components/RestaurantMenu";
-import Profile from "./components/Profile";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import UserContext from "./utils/UserContext";
 import Login from "./components/Login";
 import { Provider } from "react-redux";
 import store from "./utils/store";
 import Cart from "./components/Cart";
+
+const Profile = lazy(() => import("./components/Profile"));
 
 const App = () => {
   const [user, setUser] = useState({
@@ -54,7 +55,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: "profile",
-            element: <Profile />,
+            element: (
+              <Suspense fallback={<h1>Loading...</h1>}>
+                <Profile />
+              </Suspense>
+            ),
           },
         ],
       },

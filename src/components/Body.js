@@ -30,10 +30,12 @@ const Body = () => {
           onChange={(e) => setSearch(e.target.value)}
           className="pl-5 p-2 rounded-s-full border focus:outline-none w-96 "
           placeholder="Search"
+          data-testid="search-text"
         />
         <button
           onClick={handleSearch}
           className="bg-green-200 px-3 rounded-e-full font-semibold "
+          data-testid="search-btn"
         >
           Search
         </button>
@@ -54,7 +56,10 @@ const Body = () => {
             </>
           )}
 
-          <div className="flex flex-wrap justify-between gap-y-2">
+          <div
+            className="flex flex-wrap justify-between gap-y-2"
+            data-testid="filtered-ResList"
+          >
             {filteredRestaurants?.map((restaurant) => {
               return (
                 <Link

@@ -8,7 +8,12 @@ import { useSelector } from "react-redux";
 const Logo = () => {
   return (
     <div className="w-16">
-      <img src={foodVillaLogo} alt="logo" className="w-full" />
+      <img
+        data-testid="logo"
+        src={foodVillaLogo}
+        alt="logo"
+        className="w-full"
+      />
     </div>
   );
 };
@@ -19,8 +24,6 @@ const NavLinks = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const cartItems = useSelector((store) => store.cart.items);
-
-  console.log(cartItems);
 
   return (
     <>
@@ -42,7 +45,7 @@ const NavLinks = () => {
             </li>
           </Link>
           <Link to="/cart">
-            <li className="p-2 font-semibold rounded">
+            <li className="p-2 font-semibold rounded" data-testid="cart-length">
               Cart [{cartItems.length}]
             </li>
           </Link>
@@ -50,7 +53,9 @@ const NavLinks = () => {
       </nav>
       <div>
         <>
-          <span className="mr-2">{isOnline ? "✅" : "🔴"}</span>
+          <span className="mr-2" data-testid="online-status">
+            {isOnline ? "✅" : "🔴"}
+          </span>
           {isLoggedIn ? (
             <>
               <span className="font-bold text-slate-500">{user.email}</span>

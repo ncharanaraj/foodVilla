@@ -19,7 +19,7 @@ const Cart = () => {
       ) : (
         <>
           <div className="flex justify-between">
-            <p className="font-bold">Cart - {cartItems.length}</p>
+            <p className="font-bold">Cart Items</p>
             <button
               className=" p-2 bg-green-200 rounded-md"
               onClick={() => handleClearCart()}
@@ -35,7 +35,11 @@ const Cart = () => {
             </div>
             <div className="w-1/4">
               <p className="font-bold py-2">
-                Total: ₹{cartItems.reduce((a, item) => a + item.price / 100, 0)}
+                Total: ₹
+                {cartItems.reduce(
+                  (initialPrice, item) => initialPrice + item.price / 100,
+                  0
+                )}
               </p>
             </div>
           </div>

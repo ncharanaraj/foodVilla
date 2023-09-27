@@ -14,7 +14,7 @@ const RestaurantMenu = () => {
     <MenuLoader />
   ) : (
     <div className="max-w-screen-md m-auto my-4" key={restaurantInfo.id}>
-      <div className="border-b-2 pb-4">
+      <div className="border-b-2 pb-4" data-testid="res-info">
         <h1 className="font-bold text-lg">{restaurantInfo.name}</h1>
         <p className="italic text-xs">{restaurantInfo.cuisines.join(", ")}</p>
         <p className="text-sm">{restaurantInfo.areaName}</p>

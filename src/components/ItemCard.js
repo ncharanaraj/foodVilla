@@ -41,6 +41,7 @@ const ItemCard = (cardItem) => {
           <button
             className="p-2 bg-green-300 font-bold w-full rounded-b-md shadow-md"
             onClick={() => handleAddItem(cardItem)}
+            data-testid="add-item"
           >
             ADD
           </button>

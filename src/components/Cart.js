@@ -13,7 +13,7 @@ const Cart = () => {
   return (
     <div className="max-w-screen-lg m-4 mx-auto">
       {cartItems.length === 0 ? (
-        <p className="text-center">
+        <p className="text-center" data-testid="empty-cart">
           Your cart is empty. You can go to home page to view more restaurants
         </p>
       ) : (
@@ -27,7 +27,7 @@ const Cart = () => {
               CLEAR CART
             </button>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4" data-testid="cart-item">
             <div className="w-3/4">
               {cartItems.map((item) => (
                 <ItemCard key={item.id} {...item} />

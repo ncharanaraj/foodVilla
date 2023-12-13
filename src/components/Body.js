@@ -1,7 +1,7 @@
 import useOnline from "../utils/useOnline";
 import useRestaurants from "../utils/useRestaurants";
 import RestaurantCard from "./RestaurantCard";
-import Loader from "./loader";
+import Loader from "./Loader";
 import { Link } from "react-router-dom";
 
 const Body = () => {

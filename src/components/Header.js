@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import foodVillaLogo from "../assets/img/FoodVilla.png";
 import { Link, useNavigate } from "react-router-dom";
 import useOnline from "../utils/useOnline";
